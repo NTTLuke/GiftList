@@ -11,21 +11,19 @@ app.use(express.json());
 const MERKLE_ROOT = 'ddd59a2ffccddd60ff47993312821cd57cf30f7f14fb82937ebe2c4dc78375aa';
 
 app.post('/gift', (req, res) => {
-  // grab the parameters from the front-end here
-  //const body = req.body;
+  
+  // get params
   const { proof, leaf } = req.body;
 
-  // TODO: prove that a name is in the list 
-  // const isInTheList = false;
   // TODO: prove that a name is in the list
-  const calculatedRoot = verifyProof(proof, leaf, MERKLE_ROOT);
-  console.log("proof:", proof);
+  //using verifyProof for checking 
+  const isProofVerified = verifyProof(proof, leaf, MERKLE_ROOT);
+  //console.log("proof:", proof);
   console.log("leaf:", leaf);
   console.log("MERKLE_ROOT:", MERKLE_ROOT);
-  console.log("calculatedRoot:", calculatedRoot);
-  const isInTheList = calculatedRoot ; //=== MERKLE_ROOT;
-  console.log("isInTheList:", isInTheList);
-
+  console.log("isProofVerified (isInTheList):", isProofVerified);
+  const isInTheList = isProofVerified;
+  
   if (isInTheList) {
     res.send("You got a toy robot!");
   }
